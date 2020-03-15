@@ -20,7 +20,7 @@
         <v-img :src="picture"></v-img>
       </v-col>
       <v-col cols="10" v-if="detail !=='' ">
-        <span class="display-1">รายละเอียดการเคลม</span>
+        <span class="texthome">รายละเอียดการเคลม</span>
       </v-col>
       <v-col cols="10" v-if="detail !=='' ">
         <v-card width="100%" class="pa-2" elevation-10>
@@ -191,11 +191,17 @@ export default {
 @media (max-width: 700px) {
   .screen {
     padding-left: 30px !important;
-    font-size: 14px !important;
+    font-size: 13px !important;
   }
   .font {
     font-size: 16px !important;
   }
+  .texthome {
+    font-size: 25px !important;
+  }
+}
+.texthome {
+  font-size: 34px;
 }
 .font {
   font-size: 20px;
