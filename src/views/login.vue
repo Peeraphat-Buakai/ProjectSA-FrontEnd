@@ -73,7 +73,7 @@ export default {
         this.$cookies.set('user', getuser.data.result[0])
         this.$router.push('/')
       } else if (getuser.data.Message === 'ERROR') {
-        alert('อย่าอ่อน')
+        alert('โปรดตรวจสอบความถูกต้อง')
       }
     },
     register() {
