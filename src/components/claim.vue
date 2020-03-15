@@ -13,7 +13,7 @@
           v-model="datasearch"
         ></v-text-field>
       </v-col>
-      <v-col cols="4" sm="2">
+      <v-col cols="3" sm="2">
         <v-btn class="ma-2" block outlined color="indigo" @click="search">ค้นหา</v-btn>
       </v-col>
       <v-col cols="8" v-if="detail ==='' ">
@@ -26,39 +26,39 @@
         <v-card width="100%" class="pa-2" elevation-10>
           <v-row align-content="end" justify="center">
             <v-col cols="12">
-              <span class="pl-5">รายละเอียกรายการสินค้าที่เคลม</span>
+              <span class="pl-5 font">รายละเอียกรายการสินค้าที่เคลม</span>
             </v-col>
-            <v-col cols="4">
-              <span class="pl-10">เลขที่บิล {{detail.idbill}}</span>
+            <v-col cols="12" sm="4">
+              <span class="screen">เลขที่บิล {{detail.idbill}}</span>
             </v-col>
-            <v-col cols="8">
-              <span>วันที่ซื้อ {{detail.date}}</span>
+            <v-col cols="12" sm="8">
+              <span class="screen">วันที่ซื้อ {{detail.date}}</span>
             </v-col>
-            <v-col cols="4">
-              <span class="pl-10">ยี่ห้อสินค้า {{detail.brand}}</span>
+            <v-col cols="12">
+              <span class="screen">ยี่ห้อสินค้า {{detail.brand}}</span>
             </v-col>
-            <v-col cols="8">
-              <span>รุ่นสินค้า {{detail.idproduct}}</span>
+            <v-col cols="12">
+              <span class="screen">รุ่นสินค้า {{detail.idproduct}}</span>
             </v-col>
           </v-row>
           <v-row>
+            <v-col cols="12" sm="12">
+              <span class="pl-5 font">รายละเอียดผู้สั่งซื้อ {{detail.idbill}}</span>
+            </v-col>
+            <v-col cols="12" sm="5">
+              <span class="screen">ชื่อ {{username.fristname}}</span>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <span class="screen">สกุล {{username.lastname}}</span>
+            </v-col>
+            <v-col cols="12" sm="5">
+              <span class="screen">Email {{username.email}}</span>
+            </v-col>
+            <v-col cols="12" sm="5">
+              <span class="screen">เบอร์โทร {{username.tel}}</span>
+            </v-col>
             <v-col cols="12">
-              <span class="pl-5">รายละเอียดผู้สั่งซื้อ{{detail.idbill}}</span>
-            </v-col>
-            <v-col cols="4">
-              <span class="pl-10">ชื่อ {{username.fristname}}</span>
-            </v-col>
-            <v-col cols="3">
-              <span>สกุล {{username.lastname}}</span>
-            </v-col>
-            <v-col cols="4">
-              <span>Email {{username.email}}</span>
-            </v-col>
-            <v-col cols="4">
-              <span class="pl-10">เบอร์โทร {{username.tel}}</span>
-            </v-col>
-            <v-col cols="12">
-              <span class="pl-5">สาเหตุการเคลม</span>
+              <span class="pl-5 font">สาเหตุการเคลม</span>
             </v-col>
           </v-row>
           <v-row align-content="center" justify="center">
@@ -187,3 +187,21 @@ export default {
   }
 }
 </script>
+<style>
+@media (max-width: 700px) {
+  .screen {
+    padding-left: 30px !important;
+    font-size: 14px !important;
+  }
+  .font {
+    font-size: 16px !important;
+  }
+}
+.font {
+  font-size: 20px;
+}
+.screen {
+  padding-left: 40px;
+  font-size: 18px;
+}
+</style>
