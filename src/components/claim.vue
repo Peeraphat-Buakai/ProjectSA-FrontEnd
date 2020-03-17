@@ -84,7 +84,7 @@
       v-model="snackbar"
       :timeout="5000"
     >
-      ไม่สามารถดำเนินการได้
+      ไม่สามารถดำเนินการได้ เนื่องจากมีการส่งเคลมไปเเล้ว
       <v-btn color="white" text @click="snackbar = false">
         <v-icon>mdi-close</v-icon>
       </v-btn>
@@ -136,53 +136,55 @@ export default {
         date: moment().format('L')
       }
       var cheakbill = await this.axios.post(`${process.env.VUE_APP_API}/searchbillclaim`, datacheakbill)
-      var datewarranty = cheakbill.data.result[0].date
-      var warranty = cheakbill.data.result[0].warranty
-      this.checkmessage = cheakbill.data.Message
-      var checktime = {}
-      checktime.month = parseInt(moment().format('MM')) - parseInt(datewarranty.substring(0, 2))
-      checktime.day = parseInt(moment().format('DD')) - parseInt(datewarranty.substring(3, 5))
-      checktime.year = parseInt(moment().format('YYYY') - parseInt(datewarranty.substring(6, 10)))
-      if (checktime.year <= parseInt(warranty)) {
-        if (checktime.year === parseInt(warranty)) {
-          if (checktime.month <= 0) {
-            if (checktime.day <= 0) {
-              this.savebillclaim()
+      console.log('-----', cheakbill);
+      if (cheakbill.data.Message === 'OK') {
+        var datewarranty = cheakbill.data.result[0].date
+        var warranty = cheakbill.data.result[0].warranty
+        this.checkmessage = cheakbill.data.Message
+        var checktime = {}
+        checktime.month = parseInt(moment().format('MM')) - parseInt(datewarranty.substring(0, 2))
+        checktime.day = parseInt(moment().format('DD')) - parseInt(datewarranty.substring(3, 5))
+        checktime.year = parseInt(moment().format('YYYY') - parseInt(datewarranty.substring(6, 10)))
+        if (checktime.year <= parseInt(warranty)) {
+          if (checktime.year === parseInt(warranty)) {
+            if (checktime.month <= 0) {
+              if (checktime.day <= 0) {
+                this.savebillclaim()
+              }
+              else {
+                this.snackbarwarranty = true
+              }
             }
             else {
               this.snackbarwarranty = true
             }
-          }
-          else {
-            this.snackbarwarranty = true
+          } else {
+            this.savebillclaim()
           }
         } else {
-          this.savebillclaim()
+          this.snackbarwarranty = true
         }
-      } else {
-        this.snackbarwarranty = true
-      }
-    },
-    async savebillclaim() {
-      if (this.checkmessage === 'OK') {
-        var data = {
-          date: moment().format('L'),
-          brand: this.detail.brand,
-          idproduct: this.detail.idproduct,
-          price: this.detail.price,
-          warranty: this.detail.warranty,
-          color: this.detail.color,
-          fristname: this.username.fristname,
-          lastname: this.username.lastname,
-          tel: this.username.tel,
-          status: 'รอดำเนินการ',
-          remember: this.reasoning
-        }
-        var sent = await this.axios.post(`${process.env.VUE_APP_API}/addclaim`, data)
-        this.$router.push('/statusUser')
       } else {
         this.snackbar = true
       }
+    },
+    async savebillclaim() {
+      var data = {
+        billid: this.detail.idbill,
+        date: moment().format('L'),
+        brand: this.detail.brand,
+        idproduct: this.detail.idproduct,
+        price: this.detail.price,
+        warranty: this.detail.warranty,
+        color: this.detail.color,
+        fristname: this.username.fristname,
+        lastname: this.username.lastname,
+        tel: this.username.tel,
+        status: 'รอดำเนินการ',
+        remember: this.reasoning
+      }
+      var sent = await this.axios.post(`${process.env.VUE_APP_API}/addclaim`, data)
+      this.$router.push('/statusUser')
     }
   }
 }
